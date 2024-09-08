@@ -1,0 +1,3 @@
+# Ignore all files in the `firmware` directory except for `.gitkeep`.
+firmware/*
+!firmware/.gitkeep
