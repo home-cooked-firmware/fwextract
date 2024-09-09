@@ -1,0 +1,11 @@
+---
+services:
+  fwextract:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: fwextract
+    volumes:
+      - ./config:/fwextract-configs
+      - ./firmware:/fwextract-input
+      - ./output:/fwextract-output
