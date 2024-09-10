@@ -116,7 +116,8 @@ get_partition_size () {
 # 1. clean path - Path to directory to clean.
 clean () {
   CLEAN_DIR_PATH="$1"
-  rm -rf "$CLEAN_DIR_PATH/*"
+  echo "Cleaning $CLEAN_DIR_PATH..."
+  rm -rf "$CLEAN_DIR_PATH"
 }
 
 case $FWE_COMMAND in
@@ -138,14 +139,14 @@ case $FWE_COMMAND in
     CONFIG_ID="$3"
 
     load_config "$CONFIG_ID"
-    mkdir "$OUTPUT_DIR"
     clean "$OUTPUT_DIR"
+    mkdir "$OUTPUT_DIR"
 
     # Get partition offsets and sizes for `boot.img` and `env.img`.
-    BOOT_IMG_OFFSET=$(get_partition_offset "/fwextract-input/$INPUT_FILE" "1")
-    BOOT_IMG_SIZE=$(get_partition_size "/fwextract-input/$INPUT_FILE" "1")
-    ENV_IMG_OFFSET=$(get_partition_offset "/fwextract-input/$INPUT_FILE" "2")
-    ENV_IMG_SIZE=$(get_partition_size "/fwextract-input/$INPUT_FILE" "2")
+    BOOT_IMG_OFFSET=$(get_partition_offset "/fwextract-input/$INPUT_FILE" "4")
+    BOOT_IMG_SIZE=$(get_partition_size "/fwextract-input/$INPUT_FILE" "4")
+    ENV_IMG_OFFSET=$(get_partition_offset "/fwextract-input/$INPUT_FILE" "3")
+    ENV_IMG_SIZE=$(get_partition_size "/fwextract-input/$INPUT_FILE" "3")
 
     # Extract `boot0.img`.
     extract \
