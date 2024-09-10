@@ -70,10 +70,12 @@ VOLUME /fwextract-output
 #
 # - `coreutils`: Includes `dd` command to extract firmware
 # - `fdisk`: Used to identify partition offsets and sizes
+# - `libconfuse-common`: Dependency of OpenixCard
 RUN apt-get update \
   && apt-get install -y \
   coreutils \
   fdisk \
+  libconfuse2 \
   && rm -rf /var/cache/apt/* \
   && rm -rf /var/lib/apt/lists/* \
   && apt-get clean
