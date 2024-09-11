@@ -68,6 +68,8 @@ extract () {
      skip="$EXTRACT_OFFSET" \
      count="$EXTRACT_SIZE"
 
+  # TODO Save more info than just MD5 checksum.
+  #      Include extraction date, name of file from which firmware was extracted, etc.
   EXTRACT_MD5_HASH=($(md5sum "$EXTRACT_OUTPUT_FILEPATH"))
   echo $EXTRACT_MD5_HASH > "$EXTRACT_OUTPUT_FILEPATH.md5"
 }
@@ -82,6 +84,7 @@ get_partition_offset () {
   PARTITION_NUMBER="$2"
   PARTITION_DATA_REGEX="^\s*([0-9]+)\s+[0-9]+\s+([0-9]+)"
 
+  # Run fdisk and get the row that corresponds to the desired partition index (`$2`).
   PARTITION_FDISK_ROW=$(fdisk -l "$PARTITION_INPUT_FILE" | grep "$PARTITION_INPUT_FILE$PARTITION_NUMBER")
   PARTITION_FDISK_DATA=${PARTITION_FDISK_ROW#"$PARTITION_INPUT_FILE$PARTITION_NUMBER"}
 
@@ -89,6 +92,8 @@ get_partition_offset () {
   then
     echo "${BASH_REMATCH[1]}"
   fi
+
+  # TODO Handle failure.
 }
 
 # Prints the size of a partition in the given image to stdout.
@@ -101,6 +106,7 @@ get_partition_size () {
   PARTITION_NUMBER="$2"
   PARTITION_DATA_REGEX="^\s*([0-9]+)\s+[0-9]+\s+([0-9]+)"
 
+  # Run fdisk and get the row that corresponds to the desired partition index (`$2`).
   PARTITION_FDISK_ROW=$(fdisk -l "$PARTITION_INPUT_FILE" | grep "$PARTITION_INPUT_FILE$PARTITION_NUMBER")
   PARTITION_FDISK_DATA=${PARTITION_FDISK_ROW#"$PARTITION_INPUT_FILE$PARTITION_NUMBER"}
 
@@ -108,6 +114,8 @@ get_partition_size () {
   then
     echo "${BASH_REMATCH[2]}"
   fi
+
+  # TODO Handle failure.
 }
 
 # Deletes all files in the given directory.
