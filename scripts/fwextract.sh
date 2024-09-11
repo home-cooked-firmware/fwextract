@@ -143,6 +143,7 @@ case $FWE_COMMAND in
     mkdir "$OUTPUT_DIR"
 
     # Get partition offsets and sizes for `boot.img` and `env.img`.
+    # TODO Use configuration values for partition indices.
     BOOT_IMG_OFFSET=$(get_partition_offset "/fwextract-input/$INPUT_FILE" "4")
     BOOT_IMG_SIZE=$(get_partition_size "/fwextract-input/$INPUT_FILE" "4")
     ENV_IMG_OFFSET=$(get_partition_offset "/fwextract-input/$INPUT_FILE" "3")
