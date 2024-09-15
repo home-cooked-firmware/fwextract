@@ -74,6 +74,18 @@ extract () {
   echo $EXTRACT_MD5_HASH > "$EXTRACT_OUTPUT_FILEPATH.md5"
 }
 
+# Extracts Android boot image contents.
+#
+# Params:
+# 1. input file path - Path to `boot.img`.
+# 2. output file path - Path to output directory.
+extract_boot_image () {
+  BOOT_IMAGE_INPUT_PATH="$1"
+  BOOT_IMAGE_OUTPUT_PATH="$2"
+
+  unpackbootimg -i "$BOOT_IMAGE_INPUT_PATH" -o "$BOOT_IMAGE_OUTPUT_PATH"
+}
+
 # Prints the offset of a partition in the given image to stdout.
 #
 # Params:
@@ -188,6 +200,11 @@ case $FWE_COMMAND in
       "512" \
       "$ENV_IMG_OFFSET" \
       "$ENV_IMG_SIZE"
+
+    # Extract contents of `boot.img`
+    extract_boot_image \
+      "$OUTPUT_DIR/boot.img" \
+      "$OUTPUT_DIR/boot_img_contents"
 
     unload_config
     echo "Done"
