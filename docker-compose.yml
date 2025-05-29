@@ -6,6 +6,6 @@ services:
       dockerfile: ./Dockerfile
       target: fwextract
     volumes:
-      - ./config:/fwextract-configs
-      - ./firmware:/fwextract-input
-      - ./output:/fwextract-output
+      - ./config:/fwextract-configs:Z,U
+      - ./firmware:/fwextract-input:Z,U
+      - ./output:/fwextract-output:Z,U
